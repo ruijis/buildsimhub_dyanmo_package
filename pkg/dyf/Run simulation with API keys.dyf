@@ -1,0 +1,85 @@
+<Workspace Version="1.3.3.4111" X="908.641052369462" Y="-236.115894080689" zoom="0.841996658977499" ScaleFactor="1" Name="Run simulation with API keys" Description="" ID="33319133-20de-47d1-b54a-fad485a4b9ae" Category="BuildSimHub">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="a96836d0-8c23-404d-86a2-786360527e05" type="PythonNodeModels.PythonNode" nickname="BuildSimHub API path" x="-583.17805656158" y="569.082651724476" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false" inputcount="0">
+      <Script>import clr
+import sys
+sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Lib')
+import os
+
+appdata_path = os.getenv('appdata')
+dynamo_path = os.path.join(appdata_path, 'Dynamo')
+
+module_path = None
+for root, subfolders, files in os.walk(dynamo_path):
+	if 'BuildSimHub' in subfolders:
+		extra_path = os.path.join(root, 'BuildSimHub', 'extra')
+		module_path = os.path.join(extra_path, 'buildsimhub_python_api')
+
+OUT = module_path  or 'Could Not Find Module. Make sure it\'s installed properly'</Script>
+    </PythonNodeModels.PythonNode>
+    <PythonNodeModels.PythonNode guid="66685571-b0bc-49ed-8e75-eb29922e3a74" type="PythonNodeModels.PythonNode" nickname="BuildSimHub python API" x="-229.634997868895" y="619.8457218975" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="4">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <PortInfo index="2" default="False" />
+      <PortInfo index="3" default="False" />
+      <Script>import sys
+# get into the buildsimhub_python_api foler
+sys.path.append(IN[0])
+# get into the RPW debug tool foler
+sys.path.append(IN[1])
+
+
+# import the debug tool console
+from rpw.ui.forms import Console
+# import BuildSimHubAPI libraries
+import BuildSimHubAPI as bshapi
+
+
+# assign api keys
+project_api_key = IN[2]
+model_api_key = IN[3]
+
+
+# create a new simulation job and
+bsh = bshapi.BuildSimHubAPIClient()
+newsj = bsh.new_simulation_job(project_api_key)
+model = newsj.run_model_simulation(track_token=model_api_key, track=True, unit='si')
+
+results = bsh.model_results(project_api_key, model_api_key)
+EUI = str(model.net_site_eui()) + " " + model.last_parameter_unit
+
+# run the debug tool
+#Console(context=locals())
+
+OUT = EUI</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="73a11bcb-a66b-4d2f-9f59-5bbb0284c870" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="-576.548785521228" y="707.180377620957" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="project_api_key: string" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="6d2b24c0-536b-48a7-9787-10e935f79305" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="-576.797750962064" y="772.67952943844" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="model_api_key: string" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Function guid="8f66da85-eab4-4113-bbf3-f7fe18f1a6a3" type="Dynamo.Graph.Nodes.CustomNodes.Function" nickname="RPW_GetFilepath" x="-762.309153311529" y="646.576461454363" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <ID value="fcef74d0-aad3-400e-b164-44eb84383acb" />
+      <Name value="RPW_GetFilepath" />
+      <Description value="" />
+      <Inputs />
+      <Outputs>
+        <Output value="" />
+      </Outputs>
+    </Dynamo.Graph.Nodes.CustomNodes.Function>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="a96836d0-8c23-404d-86a2-786360527e05" start_index="0" end="66685571-b0bc-49ed-8e75-eb29922e3a74" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="73a11bcb-a66b-4d2f-9f59-5bbb0284c870" start_index="0" end="66685571-b0bc-49ed-8e75-eb29922e3a74" end_index="2" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="6d2b24c0-536b-48a7-9787-10e935f79305" start_index="0" end="66685571-b0bc-49ed-8e75-eb29922e3a74" end_index="3" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="8f66da85-eab4-4113-bbf3-f7fe18f1a6a3" start_index="0" end="66685571-b0bc-49ed-8e75-eb29922e3a74" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

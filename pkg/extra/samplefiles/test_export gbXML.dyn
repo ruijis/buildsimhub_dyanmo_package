@@ -1,0 +1,115 @@
+<Workspace Version="1.3.3.4111" X="4.06960417037271" Y="-0.158982974197613" zoom="0.954042924882813" ScaleFactor="1" Name="Home" Description="" RunType="Manual" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="ecbc111d-26c3-4d09-bdf1-36333c0dc188" type="PythonNodeModels.PythonNode" nickname="export gbXML" x="388" y="213.6" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="3">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <PortInfo index="2" default="False" />
+      <Script>import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+import clr
+
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+doc = DocumentManager.Instance.CurrentDBDocument
+
+clr.AddReference("RevitAPI")
+from Autodesk.Revit.DB import *
+
+
+
+#The inputs to this node will be stored as a list in the IN variables.
+folder = IN[0]
+filename = IN[1]
+
+oldmodel = Analysis.EnergyAnalysisDetailModel.GetMainEnergyAnalysisDetailModel(doc)
+
+TransactionManager.Instance.EnsureInTransaction(doc)
+try:
+	doc.Delete(oldmodel.Id)
+except:
+	pass
+TransactionManager.Instance.TransactionTaskDone()
+
+
+rooms = ElementId(-2000160)
+spaces = ElementId(-2003600)
+"""energydata options"""
+#all options for energydata can be found here: http://www.revitapidocs.com/2016/9108112c-330d-d570-f461-01bf62cb0d0f.htm
+energydata = Analysis.EnergyDataSettings.GetFromDocument(doc)
+TransactionManager.Instance.EnsureInTransaction(doc)
+energydata.ExportComplexity = Analysis.gbXMLExportComplexity.ComplexWithMullionsAndShadingSurfaces
+energydata.ExportDefaults = False
+energydata.SliverSpaceTolerance = 5/304.8
+
+if IN[2]:
+	energydata.ExportCategory = rooms
+else:
+	energydata.ExportCategory = spaces
+
+energydata.IncludeThermalProperties = True
+TransactionManager.Instance.TransactionTaskDone()
+
+
+"""EnergyAnalysisDetailModelOptions"""
+optionsenergy = Analysis.EnergyAnalysisDetailModelOptions()
+#Choose between detail (spaces or analytical surfaces) for export.
+#ptionsenergy.Tier = Analysis.EnergyAnalysisDetailModelTier.FirstLevelBoundaries
+optionsenergy.Tier = Analysis.EnergyAnalysisDetailModelTier.SecondLevelBoundaries
+#optionsenergy.Tier = Analysis.EnergyAnalysisDetailModelTier.Final
+
+
+#create EnergyAnalysisDetailModel
+TransactionManager.Instance.EnsureInTransaction(doc)
+model = Analysis.EnergyAnalysisDetailModel.Create(doc,optionsenergy)
+TransactionManager.Instance.TransactionTaskDone()
+
+
+#set export options to export for spaces/rooms or analytical model
+options = GBXMLExportOptions()
+options.ExportEnergyModelType = ExportEnergyModelType.SpatialElement
+
+
+#export gbmxl
+TransactionManager.Instance.EnsureInTransaction(doc)
+try:
+	doc.Export(folder,filename,options)
+	result = True
+except:
+	result = False
+TransactionManager.Instance.TransactionTaskDone()
+
+import sys
+sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Lib')
+import os
+file = filename + ".xml"
+file_path = os.path.join(folder, file)
+#Assign your output to the OUT variable.
+OUT = file_path</Script>
+    </PythonNodeModels.PythonNode>
+    <CoreNodeModels.Input.Directory guid="5f3c881a-1c2d-4686-b96e-9f0f4a2d7fdb" type="CoreNodeModels.Input.Directory" nickname="gbXML folder" x="117.214633061733" y="215.354146775307" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.String>C:\Users\sunar\Desktop</System.String>
+    </CoreNodeModels.Input.Directory>
+    <CoreNodeModels.Input.StringInput guid="ed6c7f39-233a-460a-80a5-b67b576baaba" type="CoreNodeModels.Input.StringInput" nickname="gbXML filename" x="114.4" y="319.2" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.String>22222</System.String>
+      <System.String value="22222" />
+    </CoreNodeModels.Input.StringInput>
+    <CoreNodeModels.Input.BoolSelector guid="db3558ab-35ef-44af-911b-e2ed632cf302" type="CoreNodeModels.Input.BoolSelector" nickname="rooms as volumes" x="116.34683024444" y="392.038536693827" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.Boolean>True</System.Boolean>
+    </CoreNodeModels.Input.BoolSelector>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="5f3c881a-1c2d-4686-b96e-9f0f4a2d7fdb" start_index="0" end="ecbc111d-26c3-4d09-bdf1-36333c0dc188" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="ed6c7f39-233a-460a-80a5-b67b576baaba" start_index="0" end="ecbc111d-26c3-4d09-bdf1-36333c0dc188" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="db3558ab-35ef-44af-911b-e2ed632cf302" start_index="0" end="ecbc111d-26c3-4d09-bdf1-36333c0dc188" end_index="2" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

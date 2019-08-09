@@ -1,0 +1,69 @@
+<Workspace Version="1.3.3.4111" X="262.806991999668" Y="17.188814728501" zoom="0.668458035393691" ScaleFactor="1" Name="Home" Description="" RunType="Manual" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Graph.Nodes.CustomNodes.Function guid="ee203f35-f03d-4596-97a1-fd70468742f6" type="Dynamo.Graph.Nodes.CustomNodes.Function" nickname="Run simulation with files" x="294.8" y="251.2" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <ID value="05b3d00d-e166-4f45-b4fd-c1cb23c6d664" />
+      <Name value="Run simulation with files" />
+      <Description value="idf, gbXML, epJSON" />
+      <Inputs>
+        <Input value="project_API_key" />
+        <Input value="filepath" />
+      </Inputs>
+      <Outputs>
+        <Output value="Simulation Report" />
+      </Outputs>
+    </Dynamo.Graph.Nodes.CustomNodes.Function>
+    <Dynamo.Graph.Nodes.CustomNodes.Function guid="64c76afa-75d3-4bba-a3a3-183e2b53ce00" type="Dynamo.Graph.Nodes.CustomNodes.Function" nickname="Export gbXML files" x="-43.4656057130618" y="358.718446539944" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <PortInfo index="2" default="False" />
+      <ID value="bffd082a-a349-4a41-b2d9-99637ca6a271" />
+      <Name value="Export gbXML files" />
+      <Description value="" />
+      <Inputs>
+        <Input value="folder" />
+        <Input value="filename" />
+        <Input value="rooms" />
+      </Inputs>
+      <Outputs>
+        <Output value="filepath" />
+      </Outputs>
+    </Dynamo.Graph.Nodes.CustomNodes.Function>
+    <CoreNodeModels.Input.StringInput guid="3bac0ef1-c5e6-46a4-83d6-458fd98d27ea" type="CoreNodeModels.Input.StringInput" nickname="Input your project API keys" x="-377.896594248245" y="185.100650996458" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.String>
+      </System.String>
+      <System.String value="" />
+    </CoreNodeModels.Input.StringInput>
+    <CoreNodeModels.Input.StringInput guid="46df5c1f-f60b-4ec3-9ff9-cb344c04782c" type="CoreNodeModels.Input.StringInput" nickname="Give names to gbXML files" x="-378.163063362574" y="384.995594819478" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.String>
+      </System.String>
+      <System.String value="" />
+    </CoreNodeModels.Input.StringInput>
+    <CoreNodeModels.Input.BoolSelector guid="ce4a2fe2-08f8-4585-a3bc-7e136313ade8" type="CoreNodeModels.Input.BoolSelector" nickname="Rooms as volumes" x="-378.593983124042" y="465.789904624917" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.Boolean>True</System.Boolean>
+    </CoreNodeModels.Input.BoolSelector>
+    <CoreNodeModels.Input.Directory guid="5f396ea3-ba08-466d-8397-f768804a7507" type="CoreNodeModels.Input.Directory" nickname="Select a folder for gbXML files" x="-378.388984991028" y="272.173239720841" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.String>No file selected.</System.String>
+      <HintPath>C:\Users\sunar\AppData\Roaming\Dynamo\Dynamo Revit\1.3\packages\BuildSimHub\extra\samplefiles\No file selected</HintPath>
+    </CoreNodeModels.Input.Directory>
+    <CoreNodeModels.Watch guid="9593c494-f9e1-4a13-881d-684eb8693e61" type="CoreNodeModels.Watch" nickname="Simulation report" x="672.403313677516" y="251.599959244158" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+    </CoreNodeModels.Watch>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="ee203f35-f03d-4596-97a1-fd70468742f6" start_index="0" end="9593c494-f9e1-4a13-881d-684eb8693e61" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="64c76afa-75d3-4bba-a3a3-183e2b53ce00" start_index="0" end="ee203f35-f03d-4596-97a1-fd70468742f6" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="3bac0ef1-c5e6-46a4-83d6-458fd98d27ea" start_index="0" end="ee203f35-f03d-4596-97a1-fd70468742f6" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="46df5c1f-f60b-4ec3-9ff9-cb344c04782c" start_index="0" end="64c76afa-75d3-4bba-a3a3-183e2b53ce00" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="ce4a2fe2-08f8-4585-a3bc-7e136313ade8" start_index="0" end="64c76afa-75d3-4bba-a3a3-183e2b53ce00" end_index="2" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="5f396ea3-ba08-466d-8397-f768804a7507" start_index="0" end="64c76afa-75d3-4bba-a3a3-183e2b53ce00" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

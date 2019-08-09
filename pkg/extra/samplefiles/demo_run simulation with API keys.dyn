@@ -1,0 +1,43 @@
+<Workspace Version="1.3.3.4111" X="569.662459074734" Y="282.380521050402" zoom="0.714648429468995" ScaleFactor="1" Name="Home" Description="" RunType="Manual" RunPeriod="1000" HasRunWithoutCrash="False">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Graph.Nodes.CustomNodes.Function guid="e7702e99-0353-4264-a3e0-a6cf44b376b4" type="Dynamo.Graph.Nodes.CustomNodes.Function" nickname="Run simulation with API keys" x="-395.615145206799" y="7.45801135839608" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" isPinned="true">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <ID value="33319133-20de-47d1-b54a-fad485a4b9ae" />
+      <Name value="Run Energy Simulation" />
+      <Description value="" />
+      <Inputs>
+        <Input value="project_api_key" />
+        <Input value="model_api_key" />
+      </Inputs>
+      <Outputs>
+        <Output value="OUT" />
+      </Outputs>
+    </Dynamo.Graph.Nodes.CustomNodes.Function>
+    <CoreNodeModels.Input.StringInput guid="0c6c2081-0158-4518-8ac6-e522bfec4e99" type="CoreNodeModels.Input.StringInput" nickname="Project API Key" x="-685.723371302684" y="-27.4101605689578" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.String>
+      </System.String>
+      <System.String value="" />
+    </CoreNodeModels.Input.StringInput>
+    <CoreNodeModels.Input.StringInput guid="a681312f-5f53-4c49-9e13-124e2488bf36" type="CoreNodeModels.Input.StringInput" nickname="Model API Key" x="-679.760461155177" y="49.5997480658619" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.String>
+      </System.String>
+      <System.String value="" />
+    </CoreNodeModels.Input.StringInput>
+    <CoreNodeModels.Watch guid="8567a67f-9759-40bf-92f6-c99d462f04e8" type="CoreNodeModels.Watch" nickname="Simulation EUI" x="-45.9328574711122" y="7.29965757376468" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+    </CoreNodeModels.Watch>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="e7702e99-0353-4264-a3e0-a6cf44b376b4" start_index="0" end="8567a67f-9759-40bf-92f6-c99d462f04e8" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="0c6c2081-0158-4518-8ac6-e522bfec4e99" start_index="0" end="e7702e99-0353-4264-a3e0-a6cf44b376b4" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="a681312f-5f53-4c49-9e13-124e2488bf36" start_index="0" end="e7702e99-0353-4264-a3e0-a6cf44b376b4" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

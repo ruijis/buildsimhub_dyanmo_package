@@ -1,4 +1,5 @@
-![BuildSimHub Logo](https://github.com/buildsimhub_dyanmo_package/master/BuildSimHub_Logo.png)
+![BuildSimHub Logo](https://github.com/buildsimhub_dyanmo_package/blob/master/BuildSimHub_Logo.png)
+
 
 Buildsimhub Dyanmo Package
 ========================================

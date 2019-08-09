@@ -1,4 +1,4 @@
-![BuildSimHub Logo](https://github.com/ruijis/buildsimhub_dyanmo_package/blob/master/BuildSimHub_Logo.jpg)
+![BuildSimHub Logo](https://github.com/ruijis/buildsimhub_dyanmo_package/blob/master/BuildSimHub_Logo.jpg =50x50)
 
 
 Buildsimhub Dyanmo Package
